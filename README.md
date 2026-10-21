@@ -1,1 +1,423 @@
-# new-project
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FDFBF7" />
+  <meta name="description" content="Verdelle — thoughtful botanical skincare for your everyday glow." />
+  <title>Verdelle — Pure Nature, Pure Glow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { sage: '#8A9A86', forest: '#2D3B2D', gold: '#D4AF37', cream: '#FDFBF7', olive: '#1E261E' },
+        fontFamily: { sans: ['Inter', 'sans-serif'] },
+        boxShadow: { soft: '0 18px 60px rgba(45,59,45,.10)' }
+      }}
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{--bg:#FDFBF7;--surface:#fffefa;--text:#1E261E;--muted:#697367;--line:rgba(45,59,45,.13);--green:#2D3B2D;--sage:#8A9A86;--gold:#D4AF37}
+    *{box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:Inter, sans-serif;transition:background .25s,color .25s}
+    body.dark{--bg:#151b15;--surface:#202920;--text:#f2f0e7;--muted:#b1b9ac;--line:rgba(220,230,216,.14);--green:#dce8d8;--sage:#9eaf98}
+    .surface{background:var(--surface)} .text-main{color:var(--text)} .text-muted{color:var(--muted)} .line{border-color:var(--line)}
+    .serif{font-family:'Playfair Display',serif}
+    .announcement{background:#2D3B2D;color:#fff}
+    .nav-glass{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .btn-primary{background:#2D3B2D;color:white;transition:transform .2s,background .2s}
+    body.dark .btn-primary{background:#8A9A86;color:#152015}
+    .btn-primary:hover{transform:translateY(-2px);background:#405540}
+    body.dark .btn-primary:hover{background:#b3c2ac}
+    .btn-outline{border:1px solid var(--line);transition:all .2s}
+    .btn-outline:hover{border-color:#8A9A86;background:rgba(138,154,134,.12)}
+    .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.68rem;font-weight:700}
+    .hero-image{background:linear-gradient(180deg,rgba(20,30,20,.02),rgba(20,30,20,.12)),url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1600&q=88') center/cover}
+    .product-image{transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+    .product-card:hover .product-image{transform:scale(1.045)}
+    .product-card{border:1px solid var(--line);background:var(--surface);transition:transform .25s,box-shadow .25s}
+    .product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(45,59,45,.09)}
+    .filter-btn.active{background:#2D3B2D;color:#fff;border-color:#2D3B2D}
+    body.dark .filter-btn.active{background:#8A9A86;color:#142014;border-color:#8A9A86}
+    .overlay{position:fixed;inset:0;background:rgba(12,20,12,.48);backdrop-filter:blur(4px);z-index:70;opacity:0;pointer-events:none;transition:opacity .25s}
+    .overlay.open{opacity:1;pointer-events:auto}
+    .drawer{position:fixed;z-index:80;right:0;top:0;height:100dvh;width:min(460px,100%);background:var(--surface);transform:translateX(102%);transition:transform .32s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+    .drawer.open{transform:translateX(0)}
+    .modal-wrap{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal-wrap.open{opacity:1;pointer-events:auto}
+    .modal-panel{background:var(--surface);transform:translateY(12px) scale(.99);transition:transform .2s;max-height:90dvh;overflow:auto}
+    .modal-wrap.open .modal-panel{transform:translateY(0) scale(1)}
+    .toast{position:fixed;z-index:120;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.25s;background:#2D3B2D;color:#fff;padding:12px 18px;border-radius:999px;box-shadow:0 10px 30px #0002;white-space:nowrap;font-size:13px}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .quiz-option{border:1px solid var(--line);transition:.2s;text-align:left}
+    .quiz-option:hover,.quiz-option.selected{border-color:#8A9A86;background:rgba(138,154,134,.13)}
+    .progress-fill{height:100%;width:0;background:#D4AF37;transition:width .25s}
+    .no-scroll{overflow:hidden}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+    /* Verdelle visual upgrade: richer accents + smooth, accessible motion */
+    :root{--glow:rgba(212,175,55,.18);--sage-wash:rgba(138,154,134,.13)}
+    body{background-image:radial-gradient(ellipse at 8% 12%,var(--sage-wash),transparent 27%),radial-gradient(ellipse at 92% 36%,var(--glow),transparent 23%)}
+    .announcement{background:linear-gradient(100deg,#243424,#405640 48%,#2D3B2D);background-size:180% 100%;animation:announcementFlow 12s ease-in-out infinite}
+    .hero-image{animation:heroReveal 1.1s cubic-bezier(.2,.7,.2,1) both;isolation:isolate}
+    .hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(125deg,transparent 28%,rgba(255,255,255,.15) 45%,transparent 62%);transform:translateX(-120%);animation:heroShimmer 9s ease-in-out 1.2s infinite;pointer-events:none}
+    .hero-image>*{z-index:1}
+    .hero-image .absolute{z-index:2}
+    .hero-image .relative{z-index:3}
+    .hero-image .absolute.top-7{animation:floatBadge 5s ease-in-out infinite}
+    .btn-primary{box-shadow:0 8px 22px rgba(45,59,45,.14);position:relative;overflow:hidden}
+    .btn-primary:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.22) 48%,transparent 72%);transform:translateX(-130%);transition:transform .7s}
+    .btn-primary:hover:after{transform:translateX(130%)}
+    .btn-outline:hover,.filter-btn:hover{box-shadow:0 7px 22px rgba(138,154,134,.15)}
+    .product-card{position:relative;overflow:hidden}
+    .product-card:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#8A9A86,#D4AF37,#8A9A86);transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:3}
+    .product-card:hover:before{transform:scaleX(1)}
+    .product-card .product-image{filter:saturate(.92);transition:transform .75s cubic-bezier(.2,.7,.2,1),filter .4s}
+    .product-card:hover .product-image{filter:saturate(1.08)}
+    .eyebrow{color:#788c72}
+    .serif{ text-wrap:pretty }
+    section[id]{scroll-margin-top:95px}
+    .surface,.modal-panel,.drawer{transition:background-color .25s,color .25s}
+    .testimonial-card{transition:transform .3s,box-shadow .3s}
+    #testimonial-grid article:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(45,59,45,.08)}
+    #ingredients article img{filter:saturate(.9);transition:transform .7s,filter .4s}
+    #ingredients article:hover img{filter:saturate(1.08)}
+    .reveal-ready{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal-ready.is-visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:.08s}.reveal-delay-2{transition-delay:.16s}.reveal-delay-3{transition-delay:.24s}
+    @keyframes announcementFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @keyframes heroReveal{from{opacity:.55;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+    @keyframes heroShimmer{0%,72%,100%{transform:translateX(-130%)}84%{transform:translateX(130%)}}
+    @keyframes floatBadge{0%,100%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+    @media(prefers-reduced-motion:reduce){.reveal-ready{opacity:1;transform:none} .announcement,.hero-image,.hero-image:after,.hero-image .absolute.top-7{animation:none!important}}
+
+  </style>
+</head>
+<body>
+  <!-- Announcement bar -->
+  <div class="announcement text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 min-w-0">
+        <i data-lucide="truck" class="w-4 h-4 shrink-0"></i>
+        <span id="shipping-message" class="truncate">Add $15 more to unlock FREE express shipping</span>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="hidden sm:inline opacity-70">Currency</span>
+        <select id="currency" aria-label="Choose currency" class="bg-transparent text-white border-0 outline-none cursor-pointer font-semibold">
+          <option value="USD" class="text-black">USD $</option><option value="PKR" class="text-black">PKR ₨</option><option value="EUR" class="text-black">EUR €</option><option value="GBP" class="text-black">GBP £</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 nav-glass">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-[76px] flex items-center justify-between gap-4" aria-label="Main navigation">
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-full btn-outline" aria-label="Open menu"><i data-lucide="menu" class="w-5 h-5"></i></button>
+      <a href="#home" class="flex items-center gap-2.5 shrink-0" aria-label="Verdelle home">
+        <span class="w-10 h-10 rounded-full bg-[#e7ede3] text-forest flex items-center justify-center"><i data-lucide="sprout" class="w-5 h-5"></i></span>
+        <span><span class="serif text-2xl sm:text-[27px] tracking-tight block leading-none">Verdelle</span><span class="text-[9px] uppercase tracking-[.25em] text-muted block mt-1">Botanical rituals</span></span>
+      </a>
+      <div id="desktop-nav" class="hidden lg:flex items-center gap-7 text-[13px] font-medium text-muted">
+        <a class="hover:text-main transition" href="#home">Home</a><a class="hover:text-main transition" href="#shop">Shop</a><a class="hover:text-main transition" href="#skin-quiz">Skin Quiz</a><a class="hover:text-main transition" href="#bestsellers">Best Sellers</a><a class="hover:text-main transition" href="#ingredients">Ingredients</a><a class="hover:text-main transition" href="#reviews">Reviews</a>
+      </div>
+      <div class="flex items-center gap-1 sm:gap-2">
+        <button id="search-btn" class="p-2.5 rounded-full btn-outline" aria-label="Search products"><i data-lucide="search" class="w-[18px] h-[18px]"></i></button>
+        <button id="theme-btn" class="p-2.5 rounded-full btn-outline" aria-label="Toggle dark mode"><i data-lucide="moon" class="w-[18px] h-[18px]"></i></button>
+        <button id="wishlist-btn" class="hidden sm:flex p-2.5 rounded-full btn-outline" aria-label="Wishlist"><i data-lucide="heart" class="w-[18px] h-[18px]"></i></button>
+        <button id="cart-open" class="relative p-2.5 rounded-full btn-outline" aria-label="Open shopping cart"><i data-lucide="shopping-bag" class="w-[18px] h-[18px]"></i><span id="cart-count" class="absolute -top-1 -right-1 w-[19px] h-[19px] rounded-full bg-[#D4AF37] text-[#1E261E] text-[10px] font-bold flex items-center justify-center">0</span></button>
+      </div>
+    </nav>
+    <div id="search-panel" class="hidden border-t line">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex gap-3 items-center">
+        <i data-lucide="search" class="w-5 h-5 text-muted"></i><input id="search-input" class="flex-1 bg-transparent outline-none text-sm py-2" placeholder="Search serums, cleansers, botanicals…" aria-label="Search products">
+        <button id="search-close" class="p-2 text-muted" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+    <div id="mobile-nav" class="hidden lg:hidden surface border-t line px-5 py-4">
+      <div class="flex flex-col gap-4 text-sm text-muted"><a href="#home">Home</a><a href="#shop">Shop all</a><a href="#skin-quiz">Skin Quiz</a><a href="#bestsellers">Best Sellers</a><a href="#ingredients">Ingredients</a><a href="#reviews">Reviews</a></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 pt-7 md:pt-10">
+      <div class="grid lg:grid-cols-[.92fr_1.08fr] min-h-[560px] lg:min-h-[630px] rounded-[28px] overflow-hidden">
+        <div class="surface px-7 sm:px-10 lg:px-14 py-12 md:py-16 flex flex-col justify-center relative">
+          <div class="eyebrow text-[#74876f] flex items-center gap-2 mb-6"><span class="w-8 h-px bg-[#D4AF37]"></span> Botanical skincare, thoughtfully made</div>
+          <h1 class="serif text-[clamp(3rem,5vw,5.15rem)] leading-[1.03] tracking-[-.045em] max-w-xl">Pure Nature,<br><span class="italic text-[#8A9A86]">Pure Glow.</span></h1>
+          <p class="serif text-2xl sm:text-[28px] leading-snug mt-4 max-w-lg">Skincare crafted by Earth.</p>
+          <p class="text-muted leading-7 text-sm sm:text-base mt-5 max-w-md">A softer approach to self-care. Discover botanical essentials designed to nourish your skin and bring you back to your natural glow.</p>
+          <div class="flex flex-wrap gap-3 mt-8">
+            <a href="#bestsellers" class="btn-primary rounded-full px-6 py-3.5 text-sm font-semibold inline-flex items-center gap-2">Shop best sellers <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+            <button data-open-quiz class="btn-outline rounded-full px-6 py-3.5 text-sm font-semibold inline-flex items-center gap-2">Take 1-min skin quiz <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </div>
+          <div class="grid grid-cols-2 gap-x-5 gap-y-4 mt-10 pt-7 border-t line max-w-md">
+            <div class="flex items-center gap-2 text-xs sm:text-sm"><i data-lucide="leaf" class="w-4 h-4 text-[#8A9A86]"></i> Thoughtful ingredients</div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm"><i data-lucide="heart-handshake" class="w-4 h-4 text-[#8A9A86]"></i> Never tested on animals</div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm"><i data-lucide="droplets" class="w-4 h-4 text-[#8A9A86]"></i> Skin-loving hydration</div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm"><i data-lucide="recycle" class="w-4 h-4 text-[#8A9A86]"></i> Mindful packaging</div>
+          </div>
+        </div>
+        <div class="hero-image min-h-[390px] lg:min-h-full relative flex items-end p-7 sm:p-10">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1e261e]/50 via-transparent to-transparent"></div>
+          <div class="relative text-white max-w-sm">
+            <div class="flex items-center gap-2 mb-3"><span class="w-8 h-px bg-[#D4AF37]"></span><span class="eyebrow">The daily ritual edit</span></div>
+            <p class="serif text-3xl leading-tight">Good skin days,<br>grown naturally.</p>
+          </div>
+          <div class="absolute top-7 right-7 bg-[#FDFBF7]/90 text-[#2D3B2D] rounded-full w-[88px] h-[88px] flex flex-col items-center justify-center text-center rotate-6 shadow-lg">
+            <i data-lucide="sparkles" class="w-4 h-4 mb-1"></i><span class="text-[9px] tracking-[.15em] uppercase font-bold">Nature<br>first</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 md:py-10 border-b line">
+        <div class="flex items-center justify-center gap-2.5 text-xs sm:text-sm font-medium"><i data-lucide="sprout" class="w-5 h-5 text-[#8A9A86]"></i> Plant-powered care</div>
+        <div class="flex items-center justify-center gap-2.5 text-xs sm:text-sm font-medium"><i data-lucide="shield-check" class="w-5 h-5 text-[#8A9A86]"></i> Gentle formulations</div>
+        <div class="flex items-center justify-center gap-2.5 text-xs sm:text-sm font-medium"><i data-lucide="heart" class="w-5 h-5 text-[#8A9A86]"></i> Cruelty-free ethos</div>
+        <div class="flex items-center justify-center gap-2.5 text-xs sm:text-sm font-medium"><i data-lucide="package-check" class="w-5 h-5 text-[#8A9A86]"></i> Mindful essentials</div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="bestsellers" class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 md:pt-28">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-9">
+        <div><div class="eyebrow text-[#8A9A86] mb-3">Your shelf, elevated</div><h2 class="serif text-4xl sm:text-5xl tracking-tight">The everyday essentials</h2><p class="text-muted mt-3 max-w-lg text-sm leading-6">A considered collection of skin and hair care, made for rituals that feel as good as they look.</p></div>
+        <a href="#shop" class="text-sm font-semibold inline-flex items-center gap-2 border-b border-[#D4AF37] pb-2 self-start">Explore the collection <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      </div>
+      <div id="shop" class="flex flex-wrap gap-2 mb-7" role="group" aria-label="Filter products">
+        <button class="filter-btn active rounded-full border line px-4 py-2 text-xs sm:text-sm" data-filter="All Products">All Products</button>
+        <button class="filter-btn rounded-full border line px-4 py-2 text-xs sm:text-sm" data-filter="Serums">Serums</button>
+        <button class="filter-btn rounded-full border line px-4 py-2 text-xs sm:text-sm" data-filter="Toners">Toners</button>
+        <button class="filter-btn rounded-full border line px-4 py-2 text-xs sm:text-sm" data-filter="Hair Care">Hair Care</button>
+        <button class="filter-btn rounded-full border line px-4 py-2 text-xs sm:text-sm" data-filter="Cleansers">Cleansers</button>
+      </div>
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5"></div>
+      <div class="text-center mt-10"><button id="show-all" class="btn-outline rounded-full px-6 py-3 text-sm font-semibold">You’re viewing our collection <i data-lucide="check" class="inline w-4 h-4 ml-1"></i></button></div>
+    </section>
+
+    <!-- Skin quiz banner -->
+    <section id="skin-quiz" class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 md:pt-28">
+      <div class="rounded-[28px] bg-[#e8ede4] text-[#263526] overflow-hidden grid md:grid-cols-[1.05fr_.95fr]">
+        <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
+          <div class="eyebrow text-[#6e8069] mb-4">A little more you-time</div>
+          <h2 class="serif text-4xl sm:text-5xl leading-tight">Your skin is unique.<br><span class="italic">Your routine should be, too.</span></h2>
+          <p class="text-sm leading-7 mt-5 max-w-lg text-[#586656]">Answer a few simple questions and find a thoughtful starting point for your daily ritual. No guesswork, just a little guidance.</p>
+          <button data-open-quiz class="btn-primary rounded-full px-6 py-3.5 mt-7 self-start inline-flex items-center gap-2 text-sm font-semibold">Find my routine <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          <div class="flex items-center gap-3 mt-6 text-xs text-[#586656]"><i data-lucide="clock" class="w-4 h-4"></i> About 60 seconds <span class="w-1 h-1 rounded-full bg-[#8A9A86]"></span> Personalized product suggestions</div>
+        </div>
+        <div class="min-h-[300px] md:min-h-[440px] relative">
+          <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=1200&q=85" alt="Botanical skincare bottles and natural ingredients" loading="lazy">
+          <div class="absolute bottom-5 left-5 right-5 bg-[#FDFBF7]/90 backdrop-blur rounded-2xl p-4 flex items-center gap-3">
+            <span class="w-11 h-11 rounded-full bg-[#e1e8dc] flex items-center justify-center"><i data-lucide="leaf" class="w-5 h-5 text-[#2D3B2D]"></i></span><div><p class="text-sm font-semibold">A routine that feels like you</p><p class="text-xs text-[#687466] mt-1">Made for your skin, guided by nature.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section id="ingredients" class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 md:pt-28">
+      <div class="text-center max-w-2xl mx-auto mb-10"><div class="eyebrow text-[#8A9A86] mb-3">Rooted in nature</div><h2 class="serif text-4xl sm:text-5xl">Simple ingredients.<br><span class="italic">Intentional care.</span></h2><p class="text-muted text-sm leading-7 mt-4">We believe a good routine starts with knowing what you put on your skin. Meet a few of our botanical favorites.</p></div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <article class="group"><div class="h-64 rounded-2xl overflow-hidden mb-5"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=900&q=85" alt="Botanical rose petals and skincare ingredients" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div><div class="eyebrow text-[#8A9A86] mb-2">01 / Calm & refresh</div><h3 class="serif text-2xl">Rose water</h3><p class="text-muted text-sm leading-6 mt-2">A refreshing botanical staple that helps leave skin feeling comfortable and revived.</p></article>
+        <article class="group"><div class="h-64 rounded-2xl overflow-hidden mb-5"><img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=900&q=85" alt="Citrus fruits for a bright skincare ritual" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div><div class="eyebrow text-[#8A9A86] mb-2">02 / Brighten & nourish</div><h3 class="serif text-2xl">Vitamin C</h3><p class="text-muted text-sm leading-6 mt-2">A beloved skincare ingredient for a radiant-looking complexion and a fresh-faced finish.</p></article>
+        <article class="group"><div class="h-64 rounded-2xl overflow-hidden mb-5"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85" alt="Minimal natural skincare bottles" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div><div class="eyebrow text-[#8A9A86] mb-2">03 / Restore & replenish</div><h3 class="serif text-2xl">Plant oils</h3><p class="text-muted text-sm leading-6 mt-2">Nourishing oils help soften the feel of skin and bring a comforting touch to your ritual.</p></article>
+      </div>
+      <p class="text-xs text-muted mt-6 text-center">Ingredient benefits vary by formulation and individual skin. Patch test new products before use.</p>
+    </section>
+
+    <!-- Brand philosophy -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 md:pt-28">
+      <div class="grid md:grid-cols-2 rounded-[28px] overflow-hidden surface border line">
+        <div class="min-h-[350px] md:min-h-[470px]"><img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=1200&q=85" alt="Sunlit botanical skincare ritual" loading="lazy" class="w-full h-full object-cover"></div>
+        <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center"><div class="eyebrow text-[#8A9A86] mb-4">Less, but more meaningful</div><h2 class="serif text-4xl sm:text-5xl leading-tight">Care for your skin.<br><span class="italic">Care for your world.</span></h2><p class="text-muted text-sm leading-7 mt-5">Verdelle is inspired by the quiet beauty of the natural world. We create considered essentials that make daily care feel slower, simpler, and more personal — with ingredient transparency and mindful choices at the heart of our approach.</p><div class="grid grid-cols-2 gap-4 mt-8"><div class="border-t line pt-4"><i data-lucide="leaf" class="w-5 h-5 text-[#8A9A86] mb-3"></i><p class="font-semibold text-sm">Nature inspired</p><p class="text-xs text-muted mt-1 leading-5">Thoughtful botanical ingredients.</p></div><div class="border-t line pt-4"><i data-lucide="heart" class="w-5 h-5 text-[#8A9A86] mb-3"></i><p class="font-semibold text-sm">Made with care</p><p class="text-xs text-muted mt-1 leading-5">Rituals over complicated routines.</p></div></div></div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 md:pt-28 pb-20">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-9"><div><div class="eyebrow text-[#8A9A86] mb-3">Kind words, naturally</div><h2 class="serif text-4xl sm:text-5xl">Notes from our community</h2></div><div class="flex items-center gap-2"><span class="text-[#D4AF37] tracking-widest">★★★★★</span><span class="text-sm font-semibold">4.9/5</span><span class="text-xs text-muted">— sample rating</span></div></div>
+      <div class="grid md:grid-cols-3 gap-4" id="testimonial-grid">
+        <article class="surface border line rounded-2xl p-6 sm:p-7"><div class="text-[#D4AF37] tracking-widest text-sm">★★★★★</div><p class="serif text-xl leading-relaxed mt-4">“My evening routine finally feels like a ritual instead of another task.”</p><div class="flex items-center gap-3 mt-6"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="w-11 h-11 rounded-full object-cover" alt="Customer portrait" loading="lazy"><div><p class="text-sm font-semibold">Amelia R.</p><p class="text-xs text-muted flex items-center gap-1 mt-1"><i data-lucide="badge-check" class="w-3.5 h-3.5 text-[#8A9A86]"></i> Verified buyer · sample review</p></div></div></article>
+        <article class="surface border line rounded-2xl p-6 sm:p-7"><div class="text-[#D4AF37] tracking-widest text-sm">★★★★★</div><p class="serif text-xl leading-relaxed mt-4">“The rose toner feels so refreshing. I love the simple, thoughtful feel.”</p><div class="flex items-center gap-3 mt-6"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" class="w-11 h-11 rounded-full object-cover" alt="Customer portrait" loading="lazy"><div><p class="text-sm font-semibold">Jordan M.</p><p class="text-xs text-muted flex items-center gap-1 mt-1"><i data-lucide="badge-check" class="w-3.5 h-3.5 text-[#8A9A86]"></i> Verified buyer · sample review</p></div></div></article>
+        <article class="surface border line rounded-2xl p-6 sm:p-7"><div class="text-[#D4AF37] tracking-widest text-sm">★★★★★</div><p class="serif text-xl leading-relaxed mt-4">“Beautiful packaging, lovely textures, and products that fit my routine.”</p><div class="flex items-center gap-3 mt-6"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=120&q=80" class="w-11 h-11 rounded-full object-cover" alt="Customer portrait" loading="lazy"><div><p class="text-sm font-semibold">Nadia K.</p><p class="text-xs text-muted flex items-center gap-1 mt-1"><i data-lucide="badge-check" class="w-3.5 h-3.5 text-[#8A9A86]"></i> Verified buyer · sample review</p></div></div></article>
+      </div>
+      <p class="text-center text-xs text-muted mt-5">Testimonials shown are illustrative placeholders for the website demo. Replace with authentic customer reviews before launch.</p>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="bg-[#e8ede4] text-[#263526]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14 md:py-16 grid md:grid-cols-2 gap-8 items-center">
+        <div><div class="eyebrow text-[#6e8069] mb-3">A little green in your inbox</div><h2 class="serif text-3xl sm:text-4xl">Good things grow here.</h2><p class="text-sm text-[#586656] mt-3 max-w-md leading-6">Join our community for thoughtful skincare notes, new rituals, and first access to new arrivals.</p></div>
+        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3"><label class="sr-only" for="newsletter-email">Email address</label><input id="newsletter-email" type="email" required placeholder="Your email address" class="flex-1 min-w-0 rounded-full bg-white/80 border border-[#c8d2c3] px-5 py-3.5 text-sm outline-none focus:ring-2 focus:ring-[#8A9A86]"><button class="rounded-full bg-[#2D3B2D] text-white px-6 py-3.5 text-sm font-semibold hover:bg-[#405540] transition" type="submit">Join the list <i data-lucide="arrow-up-right" class="inline w-4 h-4 ml-1"></i></button></form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.15fr] gap-10 pb-12 border-b line">
+        <div><a href="#home" class="inline-flex items-center gap-2.5"><span class="w-10 h-10 rounded-full bg-[#e7ede3] text-forest flex items-center justify-center"><i data-lucide="sprout" class="w-5 h-5"></i></span><span class="serif text-2xl">Verdelle</span></a><p class="text-muted text-sm leading-6 mt-4 max-w-xs">Botanical essentials for the everyday ritual. Thoughtful care, rooted in the beauty of nature.</p><div class="flex items-center gap-3 mt-5"><a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border line flex items-center justify-center hover:bg-[#e8ede4]"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border line flex items-center justify-center hover:bg-[#e8ede4]"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="#" aria-label="Pinterest" class="w-9 h-9 rounded-full border line flex items-center justify-center hover:bg-[#e8ede4]"><i data-lucide="pin" class="w-4 h-4"></i></a></div></div>
+        <div><h3 class="font-semibold text-sm">Explore</h3><div class="flex flex-col gap-3 mt-5 text-sm text-muted"><a href="#shop" class="hover:text-main">Shop all</a><a href="#bestsellers" class="hover:text-main">Best sellers</a><a href="#skin-quiz" class="hover:text-main">Skin quiz</a><a href="#ingredients" class="hover:text-main">Our ingredients</a></div></div>
+        <div><h3 class="font-semibold text-sm">We're here to help</h3><div class="flex flex-col gap-3 mt-5 text-sm text-muted"><a href="#reviews" class="hover:text-main">Customer stories</a><a href="#" class="hover:text-main">Shipping & returns</a><a href="#" class="hover:text-main">FAQs</a><a href="mailto:hello@verdelle.example" class="hover:text-main">Contact us</a></div></div>
+        <div><h3 class="font-semibold text-sm">Thoughtful shopping</h3><p class="text-muted text-xs leading-5 mt-4">Secure checkout experience</p><div class="flex flex-wrap gap-2 mt-3"><span class="border line rounded-md px-3 py-2 text-xs font-bold">VISA</span><span class="border line rounded-md px-3 py-2 text-xs font-bold italic">mastercard</span><span class="border line rounded-md px-3 py-2 text-xs font-semibold"> Pay</span><span class="border line rounded-md px-3 py-2 text-xs font-bold">PayPal</span></div><p class="text-xs text-muted mt-4">Checkout is a demo and does not process payments.</p></div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between gap-3 pt-6 text-xs text-muted"><p>© <span id="year"></span> Verdelle. All rights reserved.</p><div class="flex gap-5"><a href="#" class="hover:text-main">Privacy</a><a href="#" class="hover:text-main">Terms</a><a href="#" class="hover:text-main">Accessibility</a></div><p>Made with care for your daily ritual.</p></div>
+    </div>
+  </footer>
+
+  <!-- Shared overlay and cart drawer -->
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
+  <aside id="cart-drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="flex items-center justify-between px-6 py-5 border-b line"><div><h2 id="cart-title" class="serif text-2xl">Your bag <span id="drawer-count" class="text-sm font-sans text-muted">(0)</span></h2><p class="text-xs text-muted mt-1">Little rituals, on their way.</p></div><button id="cart-close" class="p-2 rounded-full btn-outline" aria-label="Close cart"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <div class="px-6 py-4 border-b line"><div class="flex justify-between text-xs mb-2"><span id="drawer-shipping-copy">You're $15 away from free shipping</span><span id="shipping-percent">0%</span></div><div class="h-1.5 bg-[#e5e8df] rounded-full overflow-hidden"><div id="shipping-progress" class="progress-fill"></div></div></div>
+    <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-2"><div class="h-full flex flex-col items-center justify-center text-center py-10"><span class="w-16 h-16 rounded-full bg-[#e8ede4] text-[#2D3B2D] flex items-center justify-center"><i data-lucide="shopping-bag" class="w-7 h-7"></i></span><h3 class="serif text-2xl mt-5">Your bag is taking a breath.</h3><p class="text-sm text-muted mt-2">Add something lovely to get started.</p><button id="continue-shopping" class="btn-primary rounded-full px-5 py-3 text-sm font-semibold mt-6">Explore best sellers</button></div></div>
+    <div class="border-t line p-6"><div class="flex justify-between text-sm mb-2"><span class="text-muted">Subtotal</span><span id="cart-subtotal" class="font-semibold">$0.00</span></div><div class="flex justify-between text-sm mb-4"><span class="text-muted">Shipping</span><span id="cart-shipping" class="font-semibold">$5.00</span></div><div class="flex justify-between text-lg mb-5"><span class="serif text-xl">Total</span><span id="cart-total" class="font-semibold">$5.00</span></div><button id="checkout-btn" class="btn-primary w-full rounded-full py-4 text-sm font-semibold flex items-center justify-center gap-2">Proceed to checkout <i data-lucide="arrow-right" class="w-4 h-4"></i></button><p class="text-center text-[11px] text-muted mt-3">Taxes calculated at checkout · Demo checkout only</p></div>
+  </aside>
+
+  <!-- Quick view modal -->
+  <div id="quick-modal" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="quick-title">
+    <div class="modal-panel w-full max-w-3xl rounded-3xl overflow-hidden border line shadow-2xl">
+      <div class="flex justify-end p-3 absolute right-0 top-0 z-10"><button class="modal-close p-2 rounded-full surface border line" aria-label="Close product details"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+      <div id="quick-content" class="grid md:grid-cols-2"></div>
+    </div>
+  </div>
+
+  <!-- Skin quiz modal -->
+  <div id="quiz-modal" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="quiz-title">
+    <div class="modal-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border line shadow-2xl relative">
+      <button class="modal-close absolute top-4 right-4 p-2 rounded-full btn-outline" aria-label="Close skin quiz"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <div class="eyebrow text-[#8A9A86] mb-3">Your personal ritual</div><h2 id="quiz-title" class="serif text-3xl pr-8">Let's get to know your skin.</h2>
+      <div class="mt-5 h-1.5 rounded-full bg-[#e5e8df] overflow-hidden"><div id="quiz-progress" class="progress-fill"></div></div>
+      <p id="quiz-step-label" class="text-xs text-muted mt-3">Question 1 of 2</p>
+      <div id="quiz-body" class="mt-5"></div>
+      <div class="flex justify-between items-center mt-7 gap-3"><button id="quiz-back" class="btn-outline rounded-full px-5 py-3 text-sm font-semibold">Back</button><button id="quiz-next" class="btn-primary rounded-full px-6 py-3 text-sm font-semibold">Continue <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Added to your bag</div>
+
+  <script>
+    const products = [
+      {id:'vitc',name:'Vitamin C Glow Serum',category:'Serums',subtitle:'Brightening daily serum · 30 ml',price:28,oldPrice:35,badge:'Bestseller',rating:'4.9',reviews:128,image:'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=900&q=85',description:'A lightweight daily serum designed to leave skin looking fresh, luminous, and hydrated.',ingredients:['Vitamin C derivative','Aloe vera','Hyaluronic acid'],recommend:'Dullness and uneven-looking tone',color:'#f0e8d8'},
+      {id:'rose',name:'Organic Rose Water Toner',category:'Toners',subtitle:'Refreshing facial mist · 100 ml',price:18,oldPrice:22,badge:'100% Pure',rating:'4.8',reviews:96,image:'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=900&q=85',description:'A refreshing mist for a quick skin pick-me-up, morning, evening, or whenever you need a moment.',ingredients:['Rose water','Glycerin','Botanical extract'],recommend:'A refreshing hydration step',color:'#eadbd9'},
+      {id:'hair',name:'Herbal Hair Growth Oil',category:'Hair Care',subtitle:'Nourishing scalp oil · 50 ml',price:24,oldPrice:30,badge:'Customer favorite',rating:'4.9',reviews:84,image:'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=900&q=85',description:'A botanical-inspired scalp and hair oil made to elevate your weekly hair-care ritual.',ingredients:['Rosemary oil','Jojoba oil','Castor oil'],recommend:'A nourishing scalp-care ritual',color:'#e3e5d8'},
+      {id:'charcoal',name:'Charcoal Detox Face Wash',category:'Cleansers',subtitle:'Daily gentle cleanser · 120 ml',price:20,oldPrice:25,badge:'Daily essential',rating:'4.7',reviews:73,image:'https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=900&q=85',description:'A fresh-feeling cleanser that helps lift away daily buildup without making your routine complicated.',ingredients:['Activated charcoal','Green tea extract','Aloe vera'],recommend:'A fresh, clean-feeling finish',color:'#e4e5df'}
+    ];
+    const rates={USD:1,PKR:278,EUR:.92,GBP:.79}, symbols={USD:'$',PKR:'₨',EUR:'€',GBP:'£'};
+    let currency='USD',cart={},filter='All Products',searchTerm='',quickId=null,toastTimer;
+    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const money=n=>`${symbols[currency]}${(n*rates[currency]).toLocaleString(currency==='PKR'?'en-PK':'en-US',{minimumFractionDigits:currency==='PKR'?0:2,maximumFractionDigits:currency==='PKR'?0:2})}`;
+    function toast(message){$('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2600)}
+    function iconRefresh(){if(window.lucide)lucide.createIcons()}
+    function renderProducts(){
+      const list=products.filter(p=>(filter==='All Products'||p.category===filter)&&(`${p.name} ${p.subtitle} ${p.category}`.toLowerCase().includes(searchTerm.toLowerCase())));
+      $('#product-grid').innerHTML=list.length?list.map(p=>`<article class="product-card product-card rounded-2xl overflow-hidden group" data-product="${p.id}">
+        <div class="relative overflow-hidden" style="background:${p.color}">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" class="product-image w-full h-[285px] sm:h-[300px] object-cover mix-blend-multiply cursor-pointer" data-quick="${p.id}">
+          <span class="absolute top-3 left-3 bg-[#FDFBF7]/90 text-[#2D3B2D] rounded-full px-3 py-1.5 text-[10px] uppercase tracking-wider font-bold">${p.badge}</span>
+          <button data-wish="${p.id}" class="absolute top-3 right-3 bg-[#FDFBF7]/90 text-[#2D3B2D] rounded-full p-2.5 hover:bg-white transition" aria-label="Add ${p.name} to wishlist"><i data-lucide="heart" class="w-4 h-4"></i></button>
+          <button data-quick="${p.id}" class="absolute bottom-3 left-3 right-3 rounded-full bg-[#FDFBF7]/95 text-[#2D3B2D] py-3 text-xs font-semibold opacity-0 group-hover:opacity-100 transition duration-200">Quick view</button>
+        </div>
+        <div class="p-4 sm:p-5"><div class="flex items-center gap-2 text-xs mb-2"><span class="text-[#D4AF37] tracking-wider">★★★★★</span><span class="text-muted">${p.rating} <span class="opacity-70">(${p.reviews})</span></span></div>
+          <button data-quick="${p.id}" class="text-left font-semibold text-[15px] hover:underline underline-offset-4">${p.name}</button><p class="text-xs text-muted mt-1.5">${p.subtitle}</p>
+          <div class="flex items-center justify-between gap-2 mt-4"><div class="flex items-center gap-2"><span class="font-semibold text-sm">${money(p.price)}</span><span class="text-xs text-muted line-through">${money(p.oldPrice)}</span></div><button data-add="${p.id}" class="rounded-full bg-[#2D3B2D] text-white w-10 h-10 flex items-center justify-center hover:bg-[#52684e] hover:scale-105 transition" aria-label="Add ${p.name} to cart"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+        </div></article>`).join(''):`<div class="col-span-full text-center py-16 text-muted">No products found. Try a different search.</div>`;
+      iconRefresh();
+    }
+    function openOverlay(){ $('#overlay').classList.add('open'); document.body.classList.add('no-scroll'); }
+    function closeOverlayIfNoModal(){if(!$('#cart-drawer').classList.contains('open')&&!$('#quick-modal').classList.contains('open')&&!$('#quiz-modal').classList.contains('open')){$('#overlay').classList.remove('open');document.body.classList.remove('no-scroll')}}
+    function openCart(){ $('#cart-drawer').classList.add('open');openOverlay();renderCart();$('#cart-close').focus(); }
+    function closeCart(){ $('#cart-drawer').classList.remove('open');closeOverlayIfNoModal(); }
+    function addToCart(id,qty=1){cart[id]=(cart[id]||0)+qty;renderCart();toast(`${products.find(p=>p.id===id).name} added to your bag`)}
+    function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart()}
+    function cartSubtotal(){return Object.entries(cart).reduce((sum,[id,qty])=>sum+products.find(p=>p.id===id).price*qty,0)}
+    function renderCart(){
+      const entries=Object.entries(cart),count=entries.reduce((s,[,q])=>s+q,0),subtotal=cartSubtotal(),shipping=subtotal===0?5:(subtotal>=50?0:5),left=Math.max(0,50-subtotal),progress=Math.min(100,subtotal/50*100);
+      $('#cart-count').textContent=count;$('#drawer-count').textContent=`(${count})`;$('#cart-subtotal').textContent=money(subtotal);$('#cart-shipping').textContent=shipping===0?'FREE':money(shipping);$('#cart-total').textContent=money(subtotal+shipping);
+      $('#shipping-progress').style.width=progress+'%';$('#shipping-percent').textContent=Math.round(progress)+'%';$('#drawer-shipping-copy').textContent=subtotal>=50?'You unlocked free shipping!':`You're ${money(left)} away from free shipping`;
+      $('#shipping-message').textContent=subtotal>=50?'You unlocked FREE express shipping — lovely choice!':`Add ${money(left)} more to unlock FREE Express Shipping!`;
+      if(!entries.length){$('#cart-items').innerHTML=`<div class="h-full flex flex-col items-center justify-center text-center py-10"><span class="w-16 h-16 rounded-full bg-[#e8ede4] text-[#2D3B2D] flex items-center justify-center"><i data-lucide="shopping-bag" class="w-7 h-7"></i></span><h3 class="serif text-2xl mt-5">Your bag is taking a breath.</h3><p class="text-sm text-muted mt-2">Add something lovely to get started.</p><button id="continue-shopping" class="btn-primary rounded-full px-5 py-3 text-sm font-semibold mt-6">Explore best sellers</button></div>`}
+      else $('#cart-items').innerHTML=entries.map(([id,qty])=>{const p=products.find(x=>x.id===id);return `<div class="flex gap-4 py-4 border-b line"><img src="${p.image}" alt="" class="w-20 h-24 object-cover rounded-xl" style="background:${p.color}"><div class="flex-1 min-w-0"><div class="flex justify-between gap-2"><p class="font-semibold text-sm leading-5">${p.name}</p><button data-remove="${id}" class="text-muted hover:text-red-600" aria-label="Remove ${p.name}"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div><p class="text-xs text-muted mt-1">${p.subtitle}</p><div class="flex justify-between items-center mt-3"><div class="flex items-center border line rounded-full"><button data-qty="${id}" data-delta="-1" class="px-3 py-1.5" aria-label="Decrease quantity">−</button><span class="text-xs min-w-5 text-center">${qty}</span><button data-qty="${id}" data-delta="1" class="px-3 py-1.5" aria-label="Increase quantity">+</button></div><span class="font-semibold text-sm">${money(p.price*qty)}</span></div></div></div>`}).join('');
+      iconRefresh();
+    }
+    function openQuick(id){quickId=id;const p=products.find(x=>x.id===id);$('#quick-content').innerHTML=`<div class="min-h-[300px] md:min-h-[470px]" style="background:${p.color}"><img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover"></div><div class="p-6 sm:p-9 flex flex-col justify-center"><div class="eyebrow text-[#8A9A86] mb-3">${p.category}</div><div class="text-[#D4AF37] text-sm tracking-widest">★★★★★ <span class="text-muted tracking-normal">${p.rating} (${p.reviews} reviews)</span></div><h2 id="quick-title" class="serif text-3xl sm:text-4xl mt-3">${p.name}</h2><p class="text-muted text-sm mt-3 leading-6">${p.description}</p><div class="flex items-center gap-3 mt-5"><span class="text-xl font-semibold">${money(p.price)}</span><span class="text-sm text-muted line-through">${money(p.oldPrice)}</span></div><div class="mt-6"><p class="text-sm font-semibold mb-3">Ingredient highlights</p><div class="flex flex-wrap gap-2">${p.ingredients.map(i=>`<span class="text-xs rounded-full px-3 py-2 bg-[#e8ede4] text-[#2D3B2D]">${i}</span>`).join('')}</div></div><p class="text-xs text-muted mt-4"><i data-lucide="leaf" class="inline w-4 h-4 mr-1 text-[#8A9A86]"></i> Botanical-inspired · Patch test recommended</p><button data-add="${p.id}" class="btn-primary rounded-full w-full py-3.5 mt-7 text-sm font-semibold">Add to bag — ${money(p.price)}</button><button class="modal-close mt-3 text-sm text-muted hover:text-main">Continue browsing</button></div>`;$('#quick-modal').classList.add('open');openOverlay();iconRefresh();}
+    function closeQuick(){ $('#quick-modal').classList.remove('open');closeOverlayIfNoModal(); }
+    const quiz={step:0,answers:{skin:'',goal:''}};
+    function drawQuiz(){
+      const body=$('#quiz-body'),step=quiz.step;
+      $('#quiz-progress').style.width=(step===0?33:step===1?66:100)+'%';$('#quiz-step-label').textContent=step<2?`Question ${step+1} of 2`:'Your suggested ritual';
+      $('#quiz-back').style.visibility=step===0?'hidden':'visible';$('#quiz-next').textContent=step===2?'Shop recommendation':'Continue →';
+      if(step===0){body.innerHTML=`<h3 class="font-semibold text-lg mb-4">How does your skin usually feel?</h3><div class="grid grid-cols-2 gap-3">${[['oily','Oily or shiny','A little extra glow'],['dry','Dry or tight','Craving comfort'],['sensitive','Sensitive','Needs a gentle touch'],['combination','Combination','A mix of both']].map(([v,t,d])=>`<button class="quiz-option ${quiz.answers.skin===v?'selected':''} rounded-2xl p-4" data-skin="${v}"><span class="block font-semibold text-sm">${t}</span><span class="block text-xs text-muted mt-1">${d}</span></button>`).join('')}</div>`}
+      else if(step===1){body.innerHTML=`<h3 class="font-semibold text-lg mb-4">What would you most like to focus on?</h3><div class="flex flex-col gap-3">${[['glow','Glow & radiance'],['refresh','Fresh, clean feeling'],['hydrate','Hydration & comfort'],['hair','Hair and scalp care']].map(([v,t])=>`<button class="quiz-option ${quiz.answers.goal===v?'selected':''} rounded-xl p-4 flex justify-between items-center" data-goal="${v}"><span class="font-medium text-sm">${t}</span><i data-lucide="arrow-up-right" class="w-4 h-4 text-muted"></i></button>`).join('')}</div>`}
+      else {let p=quiz.answers.goal==='hair'?'hair':quiz.answers.goal==='refresh'||quiz.answers.skin==='oily'?'charcoal':quiz.answers.goal==='hydrate'||quiz.answers.skin==='dry'||quiz.answers.skin==='sensitive'?'rose':'vitc';const product=products.find(x=>x.id===p);body.innerHTML=`<div class="rounded-2xl bg-[#e8ede4] p-4 flex gap-4 items-center text-[#263526]"><img src="${product.image}" alt="${product.name}" class="w-24 h-28 object-cover rounded-xl"><div><span class="eyebrow text-[#6e8069]">Your starting point</span><h3 class="serif text-2xl mt-1">${product.name}</h3><p class="text-xs mt-2 leading-5">${product.recommend}</p><p class="font-semibold text-sm mt-2">${money(product.price)}</p></div></div><p class="text-xs text-muted leading-5 mt-4">This is a simple product suggestion, not medical advice. Introduce new products gradually and patch test first.</p><button data-add="${product.id}" class="btn-primary rounded-full w-full py-3 mt-4 text-sm font-semibold">Add recommendation to bag</button>`}
+      iconRefresh();
+    }
+    function openQuiz(){quiz.step=0;quiz.answers={skin:'',goal:''};drawQuiz();$('#quiz-modal').classList.add('open');openOverlay();}
+    function closeQuiz(){$('#quiz-modal').classList.remove('open');closeOverlayIfNoModal()}
+    // Events
+    document.addEventListener('click',e=>{
+      const add=e.target.closest('[data-add]');if(add){addToCart(add.dataset.add);if($('#quick-modal').classList.contains('open'))closeQuick();return}
+      const quick=e.target.closest('[data-quick]');if(quick){openQuick(quick.dataset.quick);return}
+      const qty=e.target.closest('[data-qty]');if(qty){changeQty(qty.dataset.qty,Number(qty.dataset.delta));return}
+      const remove=e.target.closest('[data-remove]');if(remove){delete cart[remove.dataset.remove];renderCart();return}
+      const wish=e.target.closest('[data-wish]');if(wish){const id=wish.dataset.wish;wish.classList.toggle('text-rose-600');toast('Wishlist is a demo — item noted locally');return}
+      const skin=e.target.closest('[data-skin]');if(skin){quiz.answers.skin=skin.dataset.skin;drawQuiz();return}
+      const goal=e.target.closest('[data-goal]');if(goal){quiz.answers.goal=goal.dataset.goal;drawQuiz();return}
+      if(e.target.closest('[data-open-quiz]')){openQuiz();return}
+      if(e.target.closest('.modal-close')){closeQuick();closeQuiz();return}
+      if(e.target.id==='continue-shopping'){closeCart();document.querySelector('#bestsellers').scrollIntoView({behavior:'smooth'});return}
+    });
+    $$('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{filter=btn.dataset.filter;$$('.filter-btn').forEach(b=>b.classList.toggle('active',b===btn));renderProducts()}));
+    $('#cart-open').addEventListener('click',openCart);$('#cart-close').addEventListener('click',closeCart);
+    $('#overlay').addEventListener('click',()=>{closeCart();closeQuick();closeQuiz()});
+    $('#currency').addEventListener('change',e=>{currency=e.target.value;renderProducts();renderCart();if(quickId&&$('#quick-modal').classList.contains('open'))openQuick(quickId);if($('#quiz-modal').classList.contains('open'))drawQuiz()});
+    $('#theme-btn').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('#theme-btn').innerHTML=`<i data-lucide="${dark?'sun':'moon'}" class="w-[18px] h-[18px"></i>`;iconRefresh();localStorage.setItem('verdelle-theme',dark?'dark':'light')});
+    try{if(localStorage.getItem('verdelle-theme')==='dark'){document.body.classList.add('dark');$('#theme-btn').innerHTML='<i data-lucide="sun" class="w-[18px] h-[18px"></i>'}}catch(e){}
+    $('#search-btn').addEventListener('click',()=>{$('#search-panel').classList.toggle('hidden');if(!$('#search-panel').classList.contains('hidden'))$('#search-input').focus()});
+    $('#search-close').addEventListener('click',()=>{$('#search-panel').classList.add('hidden');$('#search-input').value='';searchTerm='';renderProducts()});
+    $('#search-input').addEventListener('input',e=>{searchTerm=e.target.value;renderProducts();document.querySelector('#bestsellers').scrollIntoView({behavior:'smooth',block:'start'})});
+    $('#mobile-menu-btn').addEventListener('click',()=>$('#mobile-nav').classList.toggle('hidden'));
+    $$('#mobile-nav a').forEach(a=>a.addEventListener('click',()=>$('#mobile-nav').classList.add('hidden')));
+    $('#quiz-next').addEventListener('click',()=>{if(quiz.step===0&&!quiz.answers.skin){toast('Choose the option that feels closest to your skin');return}if(quiz.step===1&&!quiz.answers.goal){toast('Choose your main skincare focus');return}if(quiz.step<2){quiz.step++;drawQuiz()}else{closeQuiz();const p=quiz.answers.goal==='hair'?'hair':quiz.answers.goal==='refresh'||quiz.answers.skin==='oily'?'charcoal':quiz.answers.goal==='hydrate'||quiz.answers.skin==='dry'||quiz.answers.skin==='sensitive'?'rose':'vitc';openQuick(p)}});
+    $('#quiz-back').addEventListener('click',()=>{if(quiz.step>0){quiz.step--;drawQuiz()}});
+    $('#newsletter-form').addEventListener('submit',e=>{e.preventDefault();const email=$('#newsletter-email').value.trim();if(email){toast('You’re on the list — welcome to Verdelle!');e.target.reset()}});
+    $('#checkout-btn').addEventListener('click',()=>toast(Object.keys(cart).length?'Demo checkout: connect a payment provider before launch.':'Your bag is empty — add a favorite first.'));
+    $('#wishlist-btn').addEventListener('click',()=>toast('Your wishlist is a demo feature — tap a heart on a product.'));
+    $('#show-all').addEventListener('click',()=>toast('You’re all caught up on our current collection.'));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeQuick();closeQuiz();$('#search-panel').classList.add('hidden');$('#mobile-nav').classList.add('hidden')}});
+    $('#year').textContent=new Date().getFullYear();
+
+    // Scroll reveal animation, with graceful fallback when IntersectionObserver is unavailable.
+    (function initRevealAnimations(){
+      const targets = [
+        ...document.querySelectorAll('#bestsellers > div, #skin-quiz > div, #ingredients article, #ingredients > div, #reviews article, main > section > div[class*="rounded-[28px]"]')
+      ];
+      targets.forEach((el, i) => {
+        if (el.closest('#product-grid')) return;
+        el.classList.add('reveal-ready');
+        if (i % 4) el.classList.add('reveal-delay-' + (i % 4));
+      });
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.12, rootMargin: '0px 0px -35px 0px'});
+      targets.forEach(el => observer.observe(el));
+    })();
+
+    renderProducts();renderCart();iconRefresh();drawQuiz();
+  </script>
+</body>
+</html>
